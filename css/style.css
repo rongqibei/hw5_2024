@@ -1,0 +1,227 @@
+/* Step 1: Logo Animation:
+    Width: from 25px to 475px
+    Transparency from 0 to 1
+    Duration: 5 seconds
+Nothe: the animation will only appear when the page is loaded; Use keyframes for implementation */
+/* Define the animation */
+@keyframes logoAnimation {
+    from {
+      width: 25px;
+      opacity: 0;
+    }
+    to {
+      width: 475px;
+      opacity: 1;
+    }
+}
+/* Apply the animation to #logo */
+#logo {
+    animation-name: logoAnimation;
+    animation-duration: 5s;
+    animation-fill-mode: forwards; /* this line makes the final state of the animation persist after the animation has finished playing */
+}
+
+/* Step 2: Body Element's Font and Background
+    Font: Poppins font (Google fonts) with serif as a backup
+    Background: “concrete_seamless.png” as a background-image with a backup color of #f1f1f1
+    */
+body {
+    font-family: 'Poppins', serif;
+    background-image: url('../images/concrete_seamless.png');
+    background-color: #f1f1f1; 
+}
+
+/* Step 3: Header Tag (all instances)
+    Apply flex to match the example
+    Example description: display in a column and centered*/
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Step 4: nav_links class
+    Apply flex to match our example
+    Example description: display in a column */
+.nav_links {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Step 5: Links Color
+    The links have the same color even after they have been visited*/
+.nav_item a:link, .nav_item a:visited {
+    color: #0000EE; 
+}
+
+.nav_item a:hover, a:focus{
+    color: #50C7C7;
+}
+  
+/* Step 6: Header elements that are direct children of a card class
+    background: #288088
+    border: solid 2px border using #45ADAD
+    padding: 20px on the top and the bottom
+    border radius: 50px on the top left and right corners */
+.card > header {
+    background: #288088;
+    border: solid 2px #45ADAD;
+    padding: 20px 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-bottom: 0px; /* I added this because I feel like this makes the outcome look closer to the screenshots provided. Specifically, this reduces the distance between the header (within the card) and the ul */
+}
+
+/* Adjust the card class's corners as well to achieve perfect curving */
+.card {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+
+/* Step 7: card class 
+    Display: flex
+    Initial size: 450px
+    Example description: the items are in a column*/
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    /* flex-basis: 450px; */
+}
+
+/* Step 8: pricing class
+    Display: flex
+    Alignment: the cards should be centered both horizontally and vertically. */
+.pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Step 9: Images in the gallery class
+    border: a solid 10px border with a color of #50C7C7
+    margin: 10px margin on all four sides
+    width: 300px*/
+.gallery img {
+    border: solid 10px #50C7C7;
+    margin: 10px;
+    width: 300px;
+}
+
+
+/* Step 10: The layout of the gallery section
+    Apply flex to achieve the effect that the layout of the gallery adapts the size of the screen
+    The gallery is centered horizontally*/
+.gallery {
+    display: flex;
+    flex-wrap: wrap; /*this is why the displays are different on different screen sizes*/
+    justify-content: center;
+}
+
+/* The following specifications are for when the screen-size is greater than 900px */
+
+@media (min-width: 900px) {
+    /* Step 11-a: Header Tag (all instances)
+        Display the logo and navigation bar in a row
+        Place the logo at the left most and the links to the right most*/
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    /* Step 11-b: nav_links class
+        Display the navigation link in a row */
+    .nav_links {
+        flex-direction: row;
+    }
+
+   
+    /* Step 12: Pricing class and Card class 
+        Apply felx property to specify the size to be 275px
+        The elements should have the same width but not necessarily the same height*/
+    .card {
+        /* width: 275px; */
+        flex-basis: 275px;
+    }
+
+    .pricing {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    /* Step 13: Sticky Header
+        Modify the first header (the one not inside main) so that it remains ALWAYS visible at the top of the screen even as we scroll down. */
+    body > header:first-of-type {
+        position: fixed;
+        top: 0;
+        z-index: 10000;
+        width: 100%;
+    }
+
+    /* Move this part down a bit so that the sticky header does not cover the content at the top */
+    main {
+        padding-top: 91.92px /*91.92px is the height of the header section*/
+    }
+
+}
+
+/* The following specifications are for when the user prefers reduced motion. */
+/* Step 14: Logo Animation (Reduced Motion)
+    The logo should appear but not be animated if prefers-reduced-motion is selected in the accessibility preferences. */
+@media (prefers-reduced-motion: reduce) {
+    #logo {
+      animation: none;
+      width: 475px; 
+      opacity: 1; 
+    }
+}
+
+/* The following specifications are for when the page is printed in portrait mode. */
+@media print {
+    body {
+        /* Step 15: Change the font to Arial with a backup value of Helvetica */
+        font-family: Arial, Helvetica, sans-serif;
+        /* Step 16: Remove the background image */
+        background-image: none; 
+    }
+
+    /* Step 17: nav and nav_links elements
+        Spaced according to the example
+        Example description: displayed in a row and have space aroud the links */
+    nav {
+        width: 100%;
+    }
+    .nav_links {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    /* Step 18: pricing class
+        Alignment: the elements align along the bottom.  */
+    .pricing {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    /* Step 19: card elements 
+        border: the card elements should have a solid border 2px of #45ADDD
+        flex-basis of 325px.  */
+    .card {
+        border: solid 2px #45ADDD;
+        flex-basis: 325px;
+    }
+
+    /* Stpe: 20: Make no part of the Gallery visible
+        Note: this include both the images and the H2*/
+    .gallery, #gallery {
+        display: none;
+    }
+
+    /* Step 21: card class list
+        Add the thumbs-up entity as shown in the example
+        Example description: the thumbs-up emoji shows up inline after the sentences started with "Your ..." */
+    .card ul li:nth-of-type(2)::after  {
+        content: '\1F44D'; /* This is the Unicode for thumbs-up emoji */
+    }
+}
